@@ -1,0 +1,8 @@
+name: ambulance_env
+description: Emergency Ambulance Routing RL Environment
+version: 1.0
+
+tasks:
+  - name: easy
+  - name: medium
+  - name: hard
