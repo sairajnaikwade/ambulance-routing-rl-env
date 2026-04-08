@@ -1,0 +1,16 @@
+[project]
+name = "ambulance-env"
+version = "0.1.0"
+description = "Ambulance Routing RL Environment using OpenEnv"
+authors = [
+  { name = "Bhushan Korde" }
+]
+dependencies = [
+  "openenv-core",
+  "fastapi",
+  "uvicorn",
+  "pydantic"
+]
+
+[tool.openenv]
+env = "server.env:AmbulanceEnv"
