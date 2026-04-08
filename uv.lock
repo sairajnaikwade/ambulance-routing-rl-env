@@ -1,0 +1,18 @@
+version = 1
+requires-python = ">=3.10"
+
+[[package]]
+name = "fastapi"
+version = "*"
+
+[[package]]
+name = "uvicorn"
+version = "*"
+
+[[package]]
+name = "pydantic"
+version = "*"
+
+[[package]]
+name = "openenv-core"
+version = "*"
