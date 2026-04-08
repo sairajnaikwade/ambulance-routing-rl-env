@@ -12,5 +12,8 @@ dependencies = [
   "pydantic"
 ]
 
+[project.scripts]
+server = "server.app:app"
+
 [tool.openenv]
 env = "server.env:AmbulanceEnv"
