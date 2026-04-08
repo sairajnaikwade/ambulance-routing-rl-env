@@ -1,27 +1,41 @@
+import os
 import asyncio
+from openai import OpenAI
 from server.env import AmbulanceEnv
 from server.models import AmbulanceAction
 
-def log_start():
-    print("[START] task=easy env=ambulance model=smart-agent")
+# Required env vars per submission guidelines
+API_BASE_URL = os.getenv("API_BASE_URL", "https://api.openai.com/v1")
+MODEL_NAME = os.getenv("MODEL_NAME", "gpt-4.1-mini")
+HF_TOKEN = os.getenv("HF_TOKEN")
 
-def log_step(step, action, reward, done):
-    print(f"[STEP] step={step} action={action} reward={reward:.2f} done={str(done).lower()} error=null")
+if HF_TOKEN is None:
+    raise ValueError("HF_TOKEN environment variable is required")
 
-def log_end(success, steps, score, rewards):
+client = OpenAI(
+    base_url=API_BASE_URL,
+    api_key=HF_TOKEN
+)
+
+def log_start(model_name):
+    print(f"[START] task=easy env=ambulance model={model_name}")
+
+def log_step(step, action, reward, done, error=None):
+    error_str = error if error else "null"
+    print(f"[STEP] step={step} action={action} reward={reward:.2f} done={str(done).lower()} error={error_str}")
+
+def log_end(success, steps, rewards):
     r = ",".join(f"{x:.2f}" for x in rewards)
-    print(f"[END] success={str(success).lower()} steps={steps} score={score:.2f} rewards={r}")
+    print(f"[END] success={str(success).lower()} steps={steps} rewards={r}")
 
 async def main():
     env = AmbulanceEnv()
     obs = env.reset()
 
     rewards = []
-    log_start()
+    log_start(MODEL_NAME)
 
     for step in range(1, 20):
-
-        # 🔍 find alive patients
         alive_patients = [i for i, p in enumerate(obs.patients) if p.time_left > 0]
 
         if alive_patients:
@@ -29,10 +43,8 @@ async def main():
                 alive_patients,
                 key=lambda i: obs.patients[i].severity
             )
-
             patient = obs.patients[critical_patient_id]
 
-            # decision logic
             if obs.ambulance_location == patient.location:
                 action = AmbulanceAction(target_type="hospital", target_id=0)
                 action_str = "go_hospital"
@@ -55,10 +67,8 @@ async def main():
         if done:
             break
 
-    score = sum(rewards)
-    success = score > 0.0  # balanced success
-
-    log_end(success, step, score, rewards)
+    success = sum(rewards) > 0.0
+    log_end(success, step, rewards)
 
 if __name__ == "__main__":
     asyncio.run(main())
