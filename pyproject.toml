@@ -9,12 +9,11 @@ dependencies = [
   "fastapi",
   "uvicorn",
   "pydantic",
-  "openai",
-  "openenv-core>=0.2.0"
+  "openai"
 ]
 
 [project.scripts]
-server = "server.app:main"
+start-server = "server.app:main"
 
 [tool.openenv]
 env = "server.env:AmbulanceEnv"
