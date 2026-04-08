@@ -4,7 +4,6 @@ from openai import OpenAI
 from server.env import AmbulanceEnv
 from server.models import AmbulanceAction
 
-# Required env vars per submission guidelines
 API_BASE_URL = os.getenv("API_BASE_URL", "https://api.openai.com/v1")
 MODEL_NAME = os.getenv("MODEL_NAME", "gpt-4.1-mini")
 HF_TOKEN = os.getenv("HF_TOKEN")
@@ -31,7 +30,6 @@ def log_end(success, steps, rewards):
 async def main():
     env = AmbulanceEnv()
     obs = env.reset()
-
     rewards = []
     log_start(MODEL_NAME)
 
@@ -56,7 +54,6 @@ async def main():
             action_str = "idle"
 
         result = env.step(action)
-
         obs = result["observation"]
         reward = result["reward"]
         done = result["done"]
