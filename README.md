@@ -1,20 +1,12 @@
 ---
-
-title: Ambulance Environment Server
+title: "Ambulance Environment Server"
 emoji: "🚑"
 colorFrom: "blue"
 colorTo: "green"
 sdk: "docker"
 pinned: false
 app_port: 7860
-tags:
-
-* openenv
-* reinforcement-learning
-* simulation
-* healthcare
-* routing
-
+tags: ["openenv", "reinforcement-learning", "simulation", "healthcare", "routing"]
 ---
 
 # 🚑 Ambulance Routing Environment for OpenEnv
