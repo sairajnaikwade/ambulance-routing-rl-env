@@ -6,14 +6,14 @@ authors = [
   { name = "Bhushan Korde" }
 ]
 dependencies = [
-  "openenv-core",
   "fastapi",
   "uvicorn",
-  "pydantic"
+  "pydantic",
+  "openai"
 ]
 
 [project.scripts]
-server = "server.app:app"
+start-server = "server.app:main"
 
 [tool.openenv]
 env = "server.env:AmbulanceEnv"
