@@ -8,9 +8,9 @@ env = AmbulanceEnv()
 
 @app.get("/")
 def home():
-    return {"message": " Ambulance RL Environment Running"}
+    return {"message": "Ambulance RL Environment Running"}
 
-@app.get("/reset")
+@app.post("/reset")
 def reset():
     return env.reset()
 
