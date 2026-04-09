@@ -4,5 +4,8 @@ version: 1.0
 
 tasks:
   - name: easy
+    grader: server.tasks:easy_grader
   - name: medium
+    grader: server.tasks:medium_grader
   - name: hard
+    grader: server.tasks:hard_grader
